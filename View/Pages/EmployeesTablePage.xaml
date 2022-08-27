@@ -1,0 +1,100 @@
+﻿<Page x:Class="SDE_TimeTracking.View.Pages.EmployeesTablePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SDE_TimeTracking.View.Pages"
+      xmlns:viewmodel="clr-namespace:SDE_TimeTracking.ViewModel" 
+      d:DataContext="{d:DesignInstance Type=viewmodel:EmployeesTablePageVM}"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="EmployeesTablePage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DockPanel LastChildFill="True" Margin="2">
+            <Button Name="AddEmployee"
+                    Content="Добавить сотрудника" 
+                    Click="AddEmployee_Click"
+                    Style="{StaticResource AddBtnStyle}"/>
+            <Label Content="Поиск: "/>
+            <TextBox Name="SearchTxtBox"
+                     MaxLength="30"
+                     FontSize="18"
+                     VerticalContentAlignment="Center"
+                     TextWrapping="NoWrap"
+                     TextChanged="SearchTxtBox_TextChanged"
+                     />
+        </DockPanel>
+        <DataGrid Name="EmployeesDG" 
+                  ItemsSource="{Binding Path=AllEmployees, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  SelectionMode="Single"
+                  IsReadOnly="True"
+                  CanUserSortColumns="True"
+                  MouseDoubleClick="EmployeesDG_MouseDoubleClick"
+                  LoadingRow="EmployeesDG_LoadingRow">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Path=ID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Предприятие" Binding="{Binding Path=Enterprises.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Подразделение" Binding="{Binding Path=Departments.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Должность" Binding="{Binding Path=Positions.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Таб. номер" 
+                                    Binding="{Binding Path=PersonnelNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="*" MinWidth="100"/>
+                <DataGridTemplateColumn Header="ФИО" MinWidth="150">
+                    <DataGridTemplateColumn.CellStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                        </Style>
+                    </DataGridTemplateColumn.CellStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" >
+                                <Label Content="{Binding Path=Surname}" MinWidth="80"/>
+                                <Label Content="{Binding Path=Name}" MinWidth="70"/>
+                                <Label Content="{Binding Path=LastName}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn CanUserResize="False" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Width="44">
+                                <Button Name="EditBtn" Click="EditBtn_Click" Style="{StaticResource DGEditBtn}">
+                                    <Image Style="{StaticResource ResourceKey=EditImg}"/>
+                                </Button>
+                                <Button Name="DelBtn"  Click="DelBtn_Click" Style="{StaticResource DGDelBtn}">
+                                    <Image Style="{StaticResource ResourceKey=DelImg}"/>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

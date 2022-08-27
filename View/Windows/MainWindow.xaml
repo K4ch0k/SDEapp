@@ -1,0 +1,63 @@
+﻿<Window x:Class="SDE_TimeTracking.View.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SDE_TimeTracking.View.Windows"
+        mc:Ignorable="d"
+        Title="Кузбасстрой" 
+        Height="450" Width="800" 
+        MinHeight="250" MinWidth="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="26"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu FontSize="18" VerticalAlignment="Center" Background="LightGray">
+            <MenuItem Header="Предприятия">
+                <MenuItem Name="SeeEnterprises" Header="Смотреть" Click="SeeEnterprises_Click"/>
+                <MenuItem Name="CreateEnterprises" Header="Создать" Click="CreateEnterprises_Click"/>
+            </MenuItem>
+            <MenuItem Header="Подразделения">
+                <MenuItem Name="SeeDepartments" Header="Смотреть" Click="SeeDepartments_Click"/>
+                <MenuItem Name="CreateDepartments" Header="Создать" Click="CreateDepartments_Click"/>
+            </MenuItem>
+            <MenuItem Header="Должности">
+                <MenuItem Name="SeePositions" Header="Смотреть" Click="SeePositions_Click"/>
+                <MenuItem Name="CreatePositions" Header="Создать" Click="CreatePositions_Click"/>
+            </MenuItem>
+            <MenuItem Header="Сотрудники">
+                <MenuItem Name="SeeEmployees" Header="Смотреть" Click="SeeEmployees_Click"/>
+                <MenuItem Name="CreateEmployees" Header="Создать" Click="CreateEmployees_Click"/>
+                <MenuItem Name="CreateTimeTracking" Header="Создать посещение" Click="CreateTimeTracking_Click"/>
+            </MenuItem>
+            <MenuItem Header="Отчеты">
+                <MenuItem Name="Create" Header="Табель учета рабочего времени"/>
+            </MenuItem>
+        </Menu>
+
+        <StackPanel Name="InfoSP" Grid.Row="1" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <Label Content="{Binding Path=qAllEnterprises}"
+                   ContentStringFormat="Всего организаций: {0}"
+                   FontSize="20"/>
+            <Label Content="{Binding Path=qAllEmployees}"
+                   ContentStringFormat="Всего работников: {0}"
+                   FontSize="20"/>
+            <Label Content="{Binding Path=qAllDepartments}"
+                   ContentStringFormat="Всего подразделений: {0}"
+                   FontSize="20"/>
+            <Label Content="{Binding Path=qAllWorkingTimes}"
+                   ContentStringFormat="Всего отметок: {0}"
+                   FontSize="20"/>
+            <Label Content="{Binding Path=qAllPositions}"
+                   ContentStringFormat="Всего должностей : {0}"
+                   FontSize="20"/>
+        </StackPanel>
+
+        <Frame Name="MainFrame"
+               NavigationUIVisibility="Hidden"
+               Grid.Row="1"/>
+    </Grid>
+</Window>

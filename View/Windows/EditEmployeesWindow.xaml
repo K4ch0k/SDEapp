@@ -1,0 +1,152 @@
+﻿<Window x:Class="SDE_TimeTracking.View.Windows.EditEmployeesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SDE_TimeTracking.View.Windows" 
+        xmlns:viewmodel="clr-namespace:SDE_TimeTracking.ViewModel"
+        d:DataContext="{d:DesignInstance Type=viewmodel:EditEmployeesWindowVM}"
+        mc:Ignorable="d"
+        Title="Сотрудник" 
+        Height="550" Width="600"
+        MinWidth="670" MinHeight="500"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel Margin="5">
+            <DockPanel LastChildFill="True" Margin="0,5">
+                <Label Content="Таб. номер:" ToolTip="Табельный номер" Style="{StaticResource LblEditWin}"/>
+                <Button Name="GenerateNumBtn" 
+                        Click="GenerateNumBtn_Click" 
+                        DockPanel.Dock="Right" 
+                        Width="32" Height="32" 
+                        BorderThickness="0"
+                        Margin="10,0,0,0">
+                    <Image Source="pack://application:,,,/Resources/GenerateRandImg.png"/>
+                </Button>
+
+                <TextBox Name="PersNumTxtBox" TextChanged="PersNumTxtBox_TextChanged" ToolTip="Обязательно для заполнения"
+                         Text="{Binding EmployeeObject.PersonnelNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                         MaxLength="10"
+                         VerticalContentAlignment="Center"
+                         FontSize="14"/>
+            </DockPanel>
+            <DockPanel LastChildFill="True" Margin="0,5">
+                <Label Content="Фамилия:" Style="{StaticResource LblEditWin}"/>
+                <TextBox Name="SurnameTxtBox" TextChanged="SurnameTxtBox_TextChanged" ToolTip="Обязательно для заполнения"
+                         Text="{Binding EmployeeObject.Surname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         MaxLength="50"
+                         FontSize="14"
+                         VerticalContentAlignment="Center"/>
+            </DockPanel>
+            <DockPanel LastChildFill="True" Margin="0,5">
+                <Label Content="Имя:" Style="{StaticResource LblEditWin}"/>
+                <TextBox Name="NameTxtBox" TextChanged="NameTxtBox_TextChanged" ToolTip="Обязательно для заполнения"
+                         Text="{Binding EmployeeObject.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         MaxLength="50"
+                         FontSize="14"
+                         VerticalContentAlignment="Center"/>
+            </DockPanel>
+            <DockPanel LastChildFill="True" Margin="0,5">
+                <Label Content="Отчество:" Style="{StaticResource LblEditWin}"/>
+                <TextBox Name="LastNameTxtBox"
+                         Text="{Binding EmployeeObject.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         MaxLength="50"
+                         FontSize="16"
+                         VerticalContentAlignment="Center"/>
+            </DockPanel>
+            <DockPanel LastChildFill="True" Margin="0,5">
+                <Label Content="Должность:" Style="{StaticResource LblEditWin}"/>
+                <ComboBox Name="AllPosCB"
+                          ItemsSource="{Binding AllPositions}" 
+                          SelectedItem="{Binding Path=EmployeeObject.Positions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          TextBoxBase.TextChanged="AllPosCB_TextChanged"
+                          >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </DockPanel>
+            <DockPanel LastChildFill="True" Margin="0,5">
+                <Label Content="Организация:" Style="{StaticResource LblEditWin}"/>
+                <ComboBox ItemsSource="{Binding AllEnterprises}" SelectedItem="{Binding EmployeeObject.Enterprises}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </DockPanel>
+            <DockPanel LastChildFill="True" Margin="0,5">
+                <Label Content="Отдел:" Style="{StaticResource LblEditWin}"/>
+                <ComboBox ItemsSource="{Binding AllDepartments}" SelectedItem="{Binding EmployeeObject.Departments}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </DockPanel>
+            <DockPanel LastChildFill="True" Margin="0,5">
+                <Label Content="Телефон:" ToolTip="Номер телефона" Style="{StaticResource LblEditWin}"/>
+                <TextBox Name="PhoneNumTxtBox" TextChanged="PhoneNumTxtBox_TextChanged" ToolTip="Обязательно для заполнения"
+                         Text="{Binding EmployeeObject.Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                         MaxLength="30"
+                         VerticalContentAlignment="Center"
+                         FontSize="14"/>
+            </DockPanel>
+            <DockPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Дата трудоустройства:" Style="{StaticResource LblEditWin}" Width="auto"/>
+                    <DatePicker SelectedDate="{Binding EmployeeObject.DateStartWork}" 
+                                FontSize="18"
+                                DisplayDateStart="{Binding StartDate}"
+                                DisplayDateEnd="{Binding EndDate}"
+                                Background="White">
+                        <DatePicker.Style>
+                            <Style TargetType="DatePicker">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding EmployeeObject.DateStartWork}" Value="null">
+                                        <Setter Property="Background" Value="IndianRed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DatePicker.Style>
+                    </DatePicker>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Label Content="Дата увольнения:" Style="{StaticResource LblEditWin}" Width="auto"/>
+                    <CheckBox VerticalContentAlignment="Center" 
+                              IsChecked="{Binding Path=IsNotWorking, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DatePicker SelectedDate="{Binding EmployeeObject.DateEndWork}"
+                                FontSize="18" 
+                                DisplayDateStart="{Binding StartDate}"
+                                DisplayDateEnd="{Binding EndDate}">
+                        <DatePicker.Style>
+                            <Style TargetType="DatePicker">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsNotWorking}" Value="true">
+                                        <Setter Property="IsEnabled" Value="True"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsNotWorking}" Value="false">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DatePicker.Style>
+                    </DatePicker>
+                </StackPanel>
+            </DockPanel>
+            <Label Content="Адрес:" ToolTip="Место жительства" Style="{StaticResource LblEditWin}"/>
+            <TextBox Name="AddressTxtBox" Text="{Binding EmployeeObject.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     MaxLength="100"
+                     TextWrapping="Wrap"
+                     FontSize="14"/>
+        </StackPanel>
+
+        <Button Name="SaveBtn" 
+                Click="SaveBtn_Click"
+                Style="{StaticResource SaveBtnStyle}"/>
+    </Grid>
+</Window>

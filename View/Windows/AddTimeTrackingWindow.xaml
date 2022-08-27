@@ -1,0 +1,75 @@
+﻿<Window x:Class="SDE_TimeTracking.View.Windows.AddTimeTrackingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SDE_TimeTracking.View.Windows" 
+        xmlns:viewmodel="clr-namespace:SDE_TimeTracking.ViewModel"
+        d:DataContext="{d:DesignInstance Type=viewmodel:AddTimeTrackingWindowVM}"
+        mc:Ignorable="d"
+        Title="Контроль по турникету" 
+        Height="350" Width="600"
+        MinWidth="550" MinHeight="350"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel Margin="5" >
+            <DockPanel LastChildFill="True" Margin="0,5">
+                <Label Content="Сотрудник:" Style="{StaticResource LblEditWin}" Width="140"/>
+                <ComboBox ItemsSource="{Binding AllEmployees}" SelectedItem="{Binding WorkingObject.Employees}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="{Binding Name}"/>
+                                <Label Content="{Binding Surname}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </DockPanel>
+            <DockPanel Margin="0,5">
+                <Label Content="Вход в здание:" Style="{StaticResource LblEditWin}" Width="140"/>
+                <DatePicker SelectedDate="{Binding WorkingObject.TimeStart}" 
+                            FontSize="18"
+                            DisplayDateStart="{Binding StartDate}"
+                            DisplayDateEnd="{Binding EndDate}"
+                            Background="White">
+                    <DatePicker.Style>
+                        <Style TargetType="DatePicker">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding WorkingObject.TimeStart}" Value="null">
+                                    <Setter Property="Background" Value="IndianRed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DatePicker.Style>
+                </DatePicker>
+            </DockPanel>
+            <DockPanel Margin="0,5">
+                <Label Content="Время входа:" Style="{StaticResource LblEditWin}" ToolTip="Время входа в здание" Width="140"/>
+                <TextBox Text="{Binding StartTime}"
+                         MaxLength="8"
+                         VerticalContentAlignment="Center"
+                         FontSize="18"/>
+            </DockPanel>
+            <DockPanel Margin="0,5">
+                <Label Content="Выход из здания:" Style="{StaticResource LblEditWin}" Width="140"/>
+                <DatePicker SelectedDate="{Binding WorkingObject.TimeEnd}" 
+                            FontSize="18"
+                            DisplayDateStart="{Binding StartDate}"
+                            DisplayDateEnd="{Binding EndDate}"
+                            Background="White"/>
+            </DockPanel>
+            <DockPanel Margin="0,5">
+                <Label Content="Время выхода:" Style="{StaticResource LblEditWin}" ToolTip="Время выхода из здания" Width="140"/>
+                <TextBox Text="{Binding EndTime}"
+                         MaxLength="8"
+                         VerticalContentAlignment="Center"
+                         FontSize="18"/>
+            </DockPanel>
+        </StackPanel>
+
+        <Button Name="SaveBtn" 
+                Click="SaveBtn_Click"
+                Style="{StaticResource SaveBtnStyle}"/>
+    </Grid>
+</Window>

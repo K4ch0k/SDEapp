@@ -1,7 +1,6 @@
 ﻿using SDE_TimeTracking.Model;
 using System;
 using System.Collections.ObjectModel;
-using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Windows;
 
@@ -90,7 +89,6 @@ namespace SDE_TimeTracking.ViewModel
                     Context.Configuration.ValidateOnSaveEnabled = false;
                     if (WorkingObject.ID == 0)
                     {
-                        Context.WorkingTime.AddOrUpdate(WorkingObject);
                         Context.WorkingTime.Attach(WorkingObject);
                         Context.Entry(WorkingObject).State = System.Data.Entity.EntityState.Added;
                     }

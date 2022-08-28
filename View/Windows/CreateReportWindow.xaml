@@ -1,0 +1,70 @@
+﻿<Window x:Class="SDE_TimeTracking.View.Windows.CreateReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SDE_TimeTracking.View.Windows"
+        xmlns:viewmodel="clr-namespace:SDE_TimeTracking.ViewModel"
+        d:DataContext="{d:DesignInstance Type=viewmodel:CreateReportWindowVM}"
+        mc:Ignorable="d"
+        Title="Создание табеля учета рабочего времени" 
+        Height="350" Width="600"
+        MinWidth="550" MinHeight="350"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel Margin="5" >
+            <DockPanel LastChildFill="True" Margin="0,5">
+                <Label Content="Группировать по:" 
+                       ToolTip="Выберите одно значение"
+                       Style="{StaticResource LblEditWin}" 
+                       Width="140"/>
+                <StackPanel Orientation="Vertical">
+                    <RadioButton Content="Организации" Style="{StaticResource CreateReportRB}"/>
+                    <RadioButton Content="Подразделению" Style="{StaticResource CreateReportRB}"/>
+                    <RadioButton Content="Должности" Style="{StaticResource CreateReportRB}"/>
+                    <RadioButton Content="Фамилии" Style="{StaticResource CreateReportRB}"/>
+                </StackPanel>
+            </DockPanel>
+            <DockPanel Margin="0,5">
+                <Label Content="Начало отчета:" Style="{StaticResource LblEditWin}" Width="140"/>
+                <DatePicker SelectedDate="{Binding SelectStartDate}" 
+                            FontSize="18"
+                            DisplayDateStart="{Binding StartDate}"
+                            DisplayDateEnd="{Binding EndDate}"
+                            Background="White">
+                    <DatePicker.Style>
+                        <Style TargetType="DatePicker">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectStartDate}" Value="null">
+                                    <Setter Property="Background" Value="IndianRed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DatePicker.Style>
+                </DatePicker>
+            </DockPanel>
+            <DockPanel Margin="0,5">
+                <Label Content="Конец отчета:" Style="{StaticResource LblEditWin}" Width="140"/>
+                <DatePicker SelectedDate="{Binding SelectEndDate}" 
+                            FontSize="18"
+                            DisplayDateStart="{Binding StartDate}"
+                            DisplayDateEnd="{Binding EndDate}"
+                            Background="White">
+                    <DatePicker.Style>
+                        <Style TargetType="DatePicker">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectEndDate}" Value="null">
+                                    <Setter Property="Background" Value="IndianRed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DatePicker.Style>
+                </DatePicker>
+            </DockPanel>
+        </StackPanel>
+
+        <Button Name="SaveBtn" 
+                Click="SaveBtn_Click"
+                Style="{StaticResource SaveBtnStyle}"/>
+    </Grid>
+</Window>

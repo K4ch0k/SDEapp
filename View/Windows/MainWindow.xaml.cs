@@ -79,5 +79,9 @@ namespace SDE_TimeTracking.View.Windows
             VM.AddTimeTracking();
         }
 
+        private void CreateReport_Click(object sender, RoutedEventArgs e)
+        {
+            VM.CreateReport();
+        }
     }
 }

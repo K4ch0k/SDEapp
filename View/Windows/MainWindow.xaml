@@ -34,7 +34,7 @@
                 <MenuItem Name="CreateTimeTracking" Header="Создать посещение" Click="CreateTimeTracking_Click"/>
             </MenuItem>
             <MenuItem Header="Отчеты">
-                <MenuItem Name="Create" Header="Табель учета рабочего времени"/>
+                <MenuItem Name="CreateReport" Header="Табель учета рабочего времени" Click="CreateReport_Click"/>
             </MenuItem>
         </Menu>
 

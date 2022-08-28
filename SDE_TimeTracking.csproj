@@ -107,6 +107,7 @@
       <DependentUpon>MainModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AddTimeTrackingWindowVM.cs" />
+    <Compile Include="ViewModel\CreateReportWindowVM.cs" />
     <Compile Include="ViewModel\DepartmentsTablePageVM.cs" />
     <Compile Include="ViewModel\EditDepartmentsWindowVM.cs" />
     <Compile Include="ViewModel\EditEmployeesWindowVM.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="ViewModel\EditPositionsWindowVM.cs" />
     <Compile Include="ViewModel\EmployeesTablePageVM.cs" />
     <Compile Include="ViewModel\EnterprisesTablePageVM.cs" />
+    <Compile Include="ViewModel\ExcelWorkBase.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
     <Compile Include="ViewModel\PositionsTablePageVM.cs" />
     <Compile Include="ViewModel\PropertyChangedBase.cs" />
@@ -131,6 +133,9 @@
     </Compile>
     <Compile Include="View\Windows\AddTimeTrackingWindow.xaml.cs">
       <DependentUpon>AddTimeTrackingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\CreateReportWindow.xaml.cs">
+      <DependentUpon>CreateReportWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Windows\EditDepartmentsWindow.xaml.cs">
       <DependentUpon>EditDepartmentsWindow.xaml</DependentUpon>
@@ -222,6 +227,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Windows\CreateReportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Windows\EditDepartmentsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -243,7 +252,35 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Model\MainModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

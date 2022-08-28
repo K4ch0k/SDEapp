@@ -1,6 +1,5 @@
 ﻿using SDE_TimeTracking.Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -64,7 +63,7 @@ namespace SDE_TimeTracking.ViewModel
                 }
                 StartDate = EmployeeObject.DateStartWork.AddMonths(-1);
 
-                
+
 
                 var listD = AllDepartments.Where(i => i.ID == EmployeeObject.DepartmentID).ToList();
                 var resD = listD[0];

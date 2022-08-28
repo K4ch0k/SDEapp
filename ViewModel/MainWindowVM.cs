@@ -118,5 +118,12 @@ namespace SDE_TimeTracking.ViewModel
             UpdateView();
         }
 
+        public void CreateReport()
+        {
+            View.Windows.CreateReportWindow EditWin = new View.Windows.CreateReportWindow();
+            EditWin.ShowDialog();
+            UpdateView();
+        }
+
     }
 }

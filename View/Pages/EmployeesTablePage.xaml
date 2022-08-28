@@ -36,10 +36,13 @@
                   SelectionMode="Single"
                   IsReadOnly="True"
                   CanUserSortColumns="True"
+                  ScrollViewer.CanContentScroll="False"
                   MouseDoubleClick="EmployeesDG_MouseDoubleClick"
                   LoadingRow="EmployeesDG_LoadingRow">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Path=ID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="ID"
+                                    Binding="{Binding Path=ID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Visibility="Collapsed"/>
                 <DataGridTextColumn Header="Предприятие" Binding="{Binding Path=Enterprises.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style>

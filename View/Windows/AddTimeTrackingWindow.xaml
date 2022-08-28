@@ -19,8 +19,8 @@
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Name}" FontSize="18" />
-                                <TextBlock Text="{Binding Surname}" FontSize="18" Margin="5,0,0,0"/>
+                                <TextBlock Text="{Binding Surname}" FontSize="18" />
+                                <TextBlock Text="{Binding Name}" FontSize="18" Margin="5,0,0,0"/>
                             </StackPanel>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
@@ -46,7 +46,7 @@
             </DockPanel>
             <DockPanel Margin="0,5">
                 <Label Content="Время входа:" Style="{StaticResource LblEditWin}" ToolTip="Время входа в здание" Width="140"/>
-                <TextBox Text="{Binding StartTime}"
+                <TextBox Text="{Binding StartTimeS}"
                          MaxLength="8"
                          VerticalContentAlignment="Center"
                          FontSize="18"/>
@@ -61,7 +61,7 @@
             </DockPanel>
             <DockPanel Margin="0,5">
                 <Label Content="Время выхода:" Style="{StaticResource LblEditWin}" ToolTip="Время выхода из здания" Width="140"/>
-                <TextBox Text="{Binding EndTime}"
+                <TextBox Text="{Binding EndTimeS}"
                          MaxLength="8"
                          VerticalContentAlignment="Center"
                          FontSize="18"/>

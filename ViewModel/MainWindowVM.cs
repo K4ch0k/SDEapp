@@ -5,15 +5,66 @@ using System.Windows;
 
 namespace SDE_TimeTracking.ViewModel
 {
-    public class MainWindowVM
+    public class MainWindowVM : PropertyChangedBase
     {
-        public int qAllEnterprises { get; set; }
-        public int qAllEmployees { get; set; }
-        public int qAllDepartments { get; set; }
-        public int qAllPositions { get; set; }
-        public int qAllWorkingTimes { get; set; }
+        private int _qAllEnterprises;
+        private int _qAllEmployees;
+        private int _qAllDepartments;
+        private int _qAllPositions;
+        private int _qAllWorkingTimes;
+
+        public int qAllEnterprises 
+        {
+            get { return _qAllEnterprises; }
+            set 
+            { 
+                _qAllEnterprises = value;
+                OnPropertyChanged(nameof(qAllEnterprises));
+            }
+        }
+        public int qAllEmployees
+        {
+            get { return _qAllEmployees; }
+            set
+            {
+                _qAllEmployees = value;
+                OnPropertyChanged(nameof(qAllEmployees));
+            }
+        }
+        public int qAllDepartments
+        {
+            get { return _qAllDepartments; }
+            set
+            {
+                _qAllDepartments = value;
+                OnPropertyChanged(nameof(_qAllDepartments));
+            }
+        }
+        public int qAllPositions
+        {
+            get { return _qAllPositions; }
+            set
+            {
+                _qAllPositions = value;
+                OnPropertyChanged(nameof(qAllPositions));
+            }
+        }
+        public int qAllWorkingTimes
+        {
+            get { return _qAllWorkingTimes; }
+            set
+            {
+                _qAllWorkingTimes = value;
+                OnPropertyChanged(nameof(qAllWorkingTimes));
+            }
+        }
 
         public MainWindowVM()
+        {
+            UpdateView();
+        }
+
+        public void UpdateView()
         {
             try
             {
@@ -36,30 +87,35 @@ namespace SDE_TimeTracking.ViewModel
         {
             View.Windows.EditEnterprisesWindow EditWin = new View.Windows.EditEnterprisesWindow(new Enterprises());
             EditWin.ShowDialog();
+            UpdateView();
         }
 
         public void AddDepartment()
         {
             View.Windows.EditDepartmentsWindow EditWin = new View.Windows.EditDepartmentsWindow(new Departments());
             EditWin.ShowDialog();
+            UpdateView();
         }
 
         public void AddPositions()
         {
             View.Windows.EditPositionsWindow EditWin = new View.Windows.EditPositionsWindow(new Positions());
             EditWin.ShowDialog();
+            UpdateView();
         }
 
         public void AddEmployees()
         {
             View.Windows.EditEmployeesWindow EditWin = new View.Windows.EditEmployeesWindow(new Employees());
             EditWin.ShowDialog();
+            UpdateView();
         }
         
         public void AddTimeTracking()
         {
             View.Windows.AddTimeTrackingWindow EditWin = new View.Windows.AddTimeTrackingWindow(new WorkingTime());
             EditWin.ShowDialog();
+            UpdateView();
         }
 
     }

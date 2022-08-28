@@ -14,6 +14,7 @@ namespace SDE_TimeTracking.Model
     
     public partial class WorkingTime
     {
+        public int ID { get; set; }
         public int EmployeeID { get; set; }
         public System.DateTime TimeStart { get; set; }
         public Nullable<System.DateTime> TimeEnd { get; set; }

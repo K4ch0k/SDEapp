@@ -19,8 +19,8 @@
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="{Binding Name}"/>
-                                <Label Content="{Binding Surname}"/>
+                                <TextBlock Text="{Binding Name}" FontSize="18" />
+                                <TextBlock Text="{Binding Surname}" FontSize="18" Margin="5,0,0,0"/>
                             </StackPanel>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>

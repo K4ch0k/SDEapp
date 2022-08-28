@@ -1,11 +1,8 @@
 ﻿using SDE_TimeTracking.Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace SDE_TimeTracking.ViewModel
@@ -45,6 +42,14 @@ namespace SDE_TimeTracking.ViewModel
 
         public int Save()
         {
+            if (WorkingObject.Employees != null)
+                WorkingObject.EmployeeID = WorkingObject.Employees.ID;
+            if (WorkingObject.EmployeeID != 0)
+            {
+                var listD = AllEmployees.Where(i => i.ID == WorkingObject.EmployeeID).ToList();
+                var resD = listD[0];
+                WorkingObject.Employees = resD;
+            }
             if (WorkingObject.Employees == null || WorkingObject.TimeStart == null)
             {
                 MessageBox.Show("Поля \"Сотрудник\", \"Вход в здание\" и \"Время входа\" обязательны для заполнения!",
@@ -62,26 +67,32 @@ namespace SDE_TimeTracking.ViewModel
                     "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return -1;
             }
+            if (WorkingObject.TimeStart < WorkingObject.Employees.DateStartWork)
+            {
+                MessageBox.Show("Дата входа в здание должно быть позже, чем дата устройства на работу! (" +
+                    WorkingObject.Employees.DateStartWork.ToString("d") + ")",
+                    "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return -1;
+            }
             try
             {
-                WorkingObject.EmployeeID = WorkingObject.Employees.ID;
+                WorkingObject.Employees = null;
                 using (var Context = new SDEEntities())
                 {
-                    /*
-                    //Context.Configuration.ValidateOnSaveEnabled = false;
-                    if (WorkingObject.TimeEnd == null)
+                    Context.Configuration.ValidateOnSaveEnabled = false;
+                    if (WorkingObject.ID == 0)
                     {
                         Context.WorkingTime.AddOrUpdate(WorkingObject);
-                        //Context.WorkingTime.Attach(WorkingObject);
-                        //Context.Entry(WorkingObject).State = System.Data.Entity.EntityState.Added;
+                        Context.WorkingTime.Attach(WorkingObject);
+                        Context.Entry(WorkingObject).State = System.Data.Entity.EntityState.Added;
                     }
                     else
                     {
                         Context.Entry(WorkingObject).State = System.Data.Entity.EntityState.Modified;
                     }
-                    //Context.Configuration.ValidateOnSaveEnabled = true;
-                    */
-                    Context.WorkingTime.AddOrUpdate(WorkingObject);
+                    Context.Configuration.ValidateOnSaveEnabled = true;
+
+                    //Context.WorkingTime.AddOrUpdate(WorkingObject);
                     Context.SaveChanges();
                 }
                 return 1;

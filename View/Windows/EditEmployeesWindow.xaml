@@ -28,14 +28,14 @@
                          Text="{Binding EmployeeObject.PersonnelNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                          MaxLength="10"
                          VerticalContentAlignment="Center"
-                         FontSize="14"/>
+                         FontSize="16"/>
             </DockPanel>
             <DockPanel LastChildFill="True" Margin="0,5">
                 <Label Content="Фамилия:" Style="{StaticResource LblEditWin}"/>
                 <TextBox Name="SurnameTxtBox" TextChanged="SurnameTxtBox_TextChanged" ToolTip="Обязательно для заполнения"
                          Text="{Binding EmployeeObject.Surname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          MaxLength="50"
-                         FontSize="14"
+                         FontSize="16"
                          VerticalContentAlignment="Center"/>
             </DockPanel>
             <DockPanel LastChildFill="True" Margin="0,5">
@@ -43,7 +43,7 @@
                 <TextBox Name="NameTxtBox" TextChanged="NameTxtBox_TextChanged" ToolTip="Обязательно для заполнения"
                          Text="{Binding EmployeeObject.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          MaxLength="50"
-                         FontSize="14"
+                         FontSize="16"
                          VerticalContentAlignment="Center"/>
             </DockPanel>
             <DockPanel LastChildFill="True" Margin="0,5">

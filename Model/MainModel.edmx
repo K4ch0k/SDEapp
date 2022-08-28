@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище SDEModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище SDEModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Departments">
           <Key>
             <PropertyRef Name="ID" />
@@ -57,13 +57,11 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "SDE.dbo.WorkingTime" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="WorkingTime">
           <Key>
-            <PropertyRef Name="EmployeeID" />
-            <PropertyRef Name="TimeStart" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeID" Type="int" Nullable="false" />
           <Property Name="TimeStart" Type="datetime" Nullable="false" />
           <Property Name="TimeEnd" Type="datetime" />
@@ -122,13 +120,7 @@
           <EntitySet Name="Enterprises" EntityType="Self.Enterprises" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Positions" EntityType="Self.Positions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="WorkingTime" EntityType="Self.WorkingTime" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [WorkingTime].[EmployeeID] AS [EmployeeID], 
-    [WorkingTime].[TimeStart] AS [TimeStart], 
-    [WorkingTime].[TimeEnd] AS [TimeEnd]
-    FROM [dbo].[WorkingTime] AS [WorkingTime]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="WorkingTime" EntityType="Self.WorkingTime" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Employees_Departments" Association="Self.FK_Employees_Departments">
             <End Role="Departments" EntitySet="Departments" />
             <End Role="Employees" EntitySet="Employees" />
@@ -146,7 +138,8 @@
             <End Role="WorkingTime" EntitySet="WorkingTime" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SDEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -211,9 +204,9 @@
         </EntityType>
         <EntityType Name="WorkingTime">
           <Key>
-            <PropertyRef Name="EmployeeID" />
-            <PropertyRef Name="TimeStart" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
           <Property Name="TimeStart" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TimeEnd" Type="DateTime" Precision="3" />
@@ -357,6 +350,7 @@
           <EntitySetMapping Name="WorkingTime">
             <EntityTypeMapping TypeName="SDEModel.WorkingTime">
               <MappingFragment StoreEntitySet="WorkingTime">
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="TimeStart" ColumnName="TimeStart" />
                 <ScalarProperty Name="TimeEnd" ColumnName="TimeEnd" />

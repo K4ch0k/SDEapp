@@ -83,14 +83,17 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn CanUserResize="False" >
+                <DataGridTemplateColumn CanUserResize="False" Width="30">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Width="44">
+                            <StackPanel Orientation="Horizontal" Width="22">
                                 <Button Name="EditBtn" Click="EditBtn_Click" Style="{StaticResource DGEditBtn}">
                                     <Image Style="{StaticResource ResourceKey=EditImg}"/>
                                 </Button>
-                                <Button Name="DelBtn"  Click="DelBtn_Click" Style="{StaticResource DGDelBtn}">
+                                <Button Name="DelBtn"  
+                                        Visibility="Collapsed"
+                                        Click="DelBtn_Click"
+                                        Style="{StaticResource DGDelBtn}">
                                     <Image Style="{StaticResource ResourceKey=DelImg}"/>
                                 </Button>
                             </StackPanel>

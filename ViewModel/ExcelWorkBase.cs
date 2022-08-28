@@ -64,22 +64,28 @@ namespace SDE_TimeTracking.ViewModel
             try
             {
                 int i = 4;
-                int j = 5;
+                int j = 6;
+
+                //_excel.Visible = true;
                 ((Excel.Worksheet)_excel.ActiveSheet).Name = DateTime.Today.ToString("d");
                 ((Excel.Worksheet)_excel.ActiveSheet).Columns.HorizontalAlignment = XlHAlign.xlHAlignCenter;
                 ((Excel.Worksheet)_excel.ActiveSheet).Columns.VerticalAlignment = XlHAlign.xlHAlignCenter;
+                ((Excel.Worksheet)_excel.ActiveSheet).Cells.ClearComments();
 
                 ((Excel.Worksheet)_excel.ActiveSheet).Columns.ColumnWidth = 30;
                 ((Excel.Worksheet)_excel.ActiveSheet).Columns[1].ColumnWidth = 10;
                 ((Excel.Worksheet)_excel.ActiveSheet).Columns[2].ColumnWidth = 3;
+                ((Excel.Worksheet)_excel.ActiveSheet).Columns[4].ColumnWidth = 15;
                 ((Excel.Worksheet)_excel.ActiveSheet).Columns[2].NumberFormat = "0";
                 ((Excel.Worksheet)_excel.ActiveSheet).Columns[3].NumberFormat = "@";
                 ((Excel.Worksheet)_excel.ActiveSheet).Columns[4].NumberFormat = "@";
+                ((Excel.Worksheet)_excel.ActiveSheet).Columns[5].NumberFormat = "@";
 
 
                 ((Excel.Worksheet)_excel.ActiveSheet).Cells[3, 2] = "№";
                 ((Excel.Worksheet)_excel.ActiveSheet).Cells[3, 3] = "ФИО, должность";
-                ((Excel.Worksheet)_excel.ActiveSheet).Cells[3, 4] = "Организация, Отдел";
+                ((Excel.Worksheet)_excel.ActiveSheet).Cells[3, 4] = "Таб. номер";
+                ((Excel.Worksheet)_excel.ActiveSheet).Cells[3, 5] = "Организация, Отдел";
 
                 for (DateTime allDays = selectStartDate; allDays <= selectEndDate; allDays = allDays.AddDays(1))
                 {
@@ -100,28 +106,38 @@ namespace SDE_TimeTracking.ViewModel
                     ((Excel.Worksheet)_excel.ActiveSheet).Cells[i, 2] = (i - 3).ToString();
                     ((Excel.Worksheet)_excel.ActiveSheet).Cells[i, 3] = item.Surname + " " + item.Name[0] + "." + ln + "\n" +
                         item.Positions.Name;
-                    ((Excel.Worksheet)_excel.ActiveSheet).Cells[i, 4] = item.Enterprises.Name + ",\n" + item.Departments.Name;
+                    if (item.DateStartWork > selectStartDate)
+                    {
+                        ((Excel.Worksheet)_excel.ActiveSheet).Cells[i, 3].AddComment("Этот сотрудник работает с " + item.DateStartWork.Date.ToString());
+                    }
+                    ((Excel.Worksheet)_excel.ActiveSheet).Cells[i, 4] = item.PersonnelNumber;
+                    ((Excel.Worksheet)_excel.ActiveSheet).Cells[i, 5] = item.Enterprises.Name + ",\n" + item.Departments.Name;
 
-                    j = 5;
-                    TimeSpan? resTime = new TimeSpan();
+                    j = 6;
+                    TimeSpan resTime = new TimeSpan();
                     for (DateTime allDays = selectStartDate; allDays <= selectEndDate; allDays = allDays.AddDays(1))
                     {
                         TimeSpan? qTIme = new TimeSpan();
+                        TimeSpan qTimeParse = new TimeSpan();
                         foreach (var time in item.WorkingTime.ToList().Where(t => t.TimeStart.Date == allDays && t.TimeEnd != null))
                         {
-                            qTIme += time.TimeEnd - time.TimeStart;
+                            qTIme += (time.TimeEnd - time.TimeStart);
                         }
-                        resTime += qTIme;
-                        ((Excel.Worksheet)_excel.ActiveSheet).Cells[i, j].NumberFormat = "@";
+
+                        TimeSpan.TryParse(qTIme.ToString(), out qTimeParse);
+                        resTime += qTimeParse;
+                        ((Excel.Worksheet)_excel.ActiveSheet).Cells[i, j].NumberFormat = "ч:мм:сс";
                         ((Excel.Worksheet)_excel.ActiveSheet).Cells[i, j].ColumnWidth = 10;
-                        ((Excel.Worksheet)_excel.ActiveSheet).Cells[i, j] = qTIme.ToString();
+                        ((Excel.Worksheet)_excel.ActiveSheet).Cells[i, j] = qTimeParse.ToString();
                         j++;
                     }
 
-                    ((Excel.Worksheet)_excel.ActiveSheet).Cells[i, j] = resTime.ToString();
+                    string tsString = string.Format("{0:00}:{1:00}:{2:00}", (int)resTime.TotalHours, resTime.Minutes, resTime.Seconds);
 
-                    ((Excel.Worksheet)_excel.ActiveSheet).Cells[i,3].HorizontalAlignment = XlHAlign.xlHAlignLeft;
-                    ((Excel.Worksheet)_excel.ActiveSheet).Cells[i,4].HorizontalAlignment = XlHAlign.xlHAlignLeft;
+                    ((Excel.Worksheet)_excel.ActiveSheet).Cells[i, j] = tsString;
+
+                    //((Excel.Worksheet)_excel.ActiveSheet).Cells[i,3].HorizontalAlignment = XlHAlign.xlHAlignLeft;
+                    //((Excel.Worksheet)_excel.ActiveSheet).Cells[i,5].HorizontalAlignment = XlHAlign.xlHAlignLeft;
 
                     i++;
                 }

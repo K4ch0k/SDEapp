@@ -13,7 +13,7 @@
         WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel Margin="5" >
-            <DockPanel LastChildFill="True" Margin="0,5">
+            <DockPanel LastChildFill="True" Margin="0,5" Visibility="Collapsed">
                 <Label Content="Группировать по:" 
                        ToolTip="Выберите одно значение"
                        Style="{StaticResource LblEditWin}" 

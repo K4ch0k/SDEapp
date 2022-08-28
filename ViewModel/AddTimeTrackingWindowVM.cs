@@ -16,8 +16,8 @@ namespace SDE_TimeTracking.ViewModel
         public TimeSpan StartTime { get; set; } = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
         public TimeSpan EndTime { get; set; } = new TimeSpan(DateTime.Now.Hour + 6, DateTime.Now.Minute - 10, DateTime.Now.Second + 133);
 
-        public string StartTimeS { get; set; } = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second).ToString();
-        public string EndTimeS { get; set; } = new TimeSpan(DateTime.Now.Hour + 6, DateTime.Now.Minute - 10, DateTime.Now.Second + 133).ToString();
+        public string StartTimeS { get; set; } = new TimeSpan(7, DateTime.Now.Minute, DateTime.Now.Second).ToString();
+        public string EndTimeS { get; set; } = new TimeSpan(18, DateTime.Now.Minute - 10, DateTime.Now.Second + 133).ToString();
 
         public AddTimeTrackingWindowVM()
         {
@@ -58,11 +58,18 @@ namespace SDE_TimeTracking.ViewModel
                     "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return -1;
             }
-            
+
             try
             {
-                StartTime = TimeSpan.Parse(StartTimeS);
-                EndTime = TimeSpan.Parse(EndTimeS);
+                TimeSpan time = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                if (TimeSpan.TryParse(StartTimeS, out time))
+                {
+                    StartTime = TimeSpan.Parse(StartTimeS);
+                }
+                if (TimeSpan.TryParse(EndTimeS, out time))
+                {
+                    EndTime = TimeSpan.Parse(EndTimeS);
+                }
 
                 WorkingObject.TimeStart += StartTime;
                 if (WorkingObject.TimeEnd != null)

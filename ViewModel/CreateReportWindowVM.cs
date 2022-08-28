@@ -1,12 +1,9 @@
-﻿using SDE_TimeTracking.Model;
+﻿using Microsoft.Win32;
+using SDE_TimeTracking.Model;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using Excel = Microsoft.Office.Interop.Excel;
-using System.Reflection;
-using System.IO;
-using Microsoft.Win32;
 
 namespace SDE_TimeTracking.ViewModel
 {
@@ -45,7 +42,8 @@ namespace SDE_TimeTracking.ViewModel
                         OrderBy(i => i.TimeStart).Where(item =>
                         item.TimeStart >= SelectStartDate && (item.TimeEnd != null && item.TimeEnd <= SelectEndDate)));
 
-                    AllEmployees = new ObservableCollection<Employees>(Context.Employees.ToList());
+                    AllEmployees = new ObservableCollection<Employees>(Context.Employees.ToList().Where(i => 
+                    i.DateEndWork == null || (i.DateEndWork > SelectStartDate && i.DateEndWork < SelectEndDate)));
                     AllEnterprises = new ObservableCollection<Enterprises>(Context.Enterprises.ToList());
                     AllPositions = new ObservableCollection<Positions>(Context.Positions.ToList());
                     AllDepartments = new ObservableCollection<Departments>(Context.Departments.ToList());

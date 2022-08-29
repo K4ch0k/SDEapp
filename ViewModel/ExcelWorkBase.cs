@@ -136,9 +136,6 @@ namespace SDE_TimeTracking.ViewModel
 
                     ((Excel.Worksheet)_excel.ActiveSheet).Cells[i, j] = tsString;
 
-                    //((Excel.Worksheet)_excel.ActiveSheet).Cells[i,3].HorizontalAlignment = XlHAlign.xlHAlignLeft;
-                    //((Excel.Worksheet)_excel.ActiveSheet).Cells[i,5].HorizontalAlignment = XlHAlign.xlHAlignLeft;
-
                     i++;
                 }
                 return true;

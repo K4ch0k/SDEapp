@@ -22,9 +22,22 @@ namespace SDE_TimeTracking.ViewModel
             }
         }
 
+        private bool _seeDelEmpl = true;
+        public bool SeeDelEmpl
+        {
+            get { return _seeDelEmpl; }
+            set
+            {
+                _seeDelEmpl = value;
+                OnPropertyChanged(nameof(SeeDelEmpl));
+                UpdateTable();
+            }
+        }
+
         public ObservableCollection<Positions> AllPositions { get; set; }
         public ObservableCollection<Enterprises> AllEnterprises { get; set; }
         public ObservableCollection<Departments> AllDepartments { get; set; }
+
 
 
 
@@ -39,7 +52,15 @@ namespace SDE_TimeTracking.ViewModel
             {
                 using (var Context = new SDEEntities())
                 {
-                    AllEmployees = new ObservableCollection<Employees>(Context.Employees.ToList());
+                    if (SeeDelEmpl == true)
+                    {
+                        AllEmployees = new ObservableCollection<Employees>(Context.Employees.ToList());
+                    }
+                    else
+                    {
+                        AllEmployees = new ObservableCollection<Employees>(Context.Employees.ToList().Where(
+                            i => i.DateEndWork == null));
+                    }
                     AllEnterprises = new ObservableCollection<Enterprises>(Context.Enterprises.ToList());
                     AllDepartments = new ObservableCollection<Departments>(Context.Departments.ToList());
                     AllPositions = new ObservableCollection<Positions>(Context.Positions.ToList());

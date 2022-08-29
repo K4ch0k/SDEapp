@@ -20,6 +20,15 @@
                     Content="Добавить сотрудника" 
                     Click="AddEmployee_Click"
                     Style="{StaticResource AddBtnStyle}"/>
+            <CheckBox IsChecked="{Binding SeeDelEmpl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ToolTip="Отображать уволенных сотрудников"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      Margin="10,0">
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                </CheckBox.LayoutTransform>
+            </CheckBox>
             <Label Content="Поиск: "/>
             <TextBox Name="SearchTxtBox"
                      MaxLength="30"

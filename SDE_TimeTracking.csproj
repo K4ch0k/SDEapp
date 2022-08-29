@@ -107,6 +107,7 @@
       <DependentUpon>MainModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AddTimeTrackingWindowVM.cs" />
+    <Compile Include="ViewModel\AddTimeTrackWithoutView.cs" />
     <Compile Include="ViewModel\CreateReportWindowVM.cs" />
     <Compile Include="ViewModel\DepartmentsTablePageVM.cs" />
     <Compile Include="ViewModel\EditDepartmentsWindowVM.cs" />

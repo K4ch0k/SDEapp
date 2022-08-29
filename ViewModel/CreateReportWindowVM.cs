@@ -24,9 +24,10 @@ namespace SDE_TimeTracking.ViewModel
         {
             try
             {
-                if (SelectEndDate < SelectStartDate)
+                if (SelectEndDate <= SelectStartDate)
                 {
-                    MessageBox.Show("Время выхода из здания не может быть раньше, чем время входа",
+                    MessageBox.Show("Время выхода из здания не может быть раньше, чем время входа. " +
+                        "Отчетный период должен быть больше 1 дня",
                         "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     return -1;
                 }

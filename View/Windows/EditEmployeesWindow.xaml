@@ -8,8 +8,8 @@
         d:DataContext="{d:DesignInstance Type=viewmodel:EditEmployeesWindowVM}"
         mc:Ignorable="d"
         Title="Сотрудник" 
-        Height="550" Width="600"
-        MinWidth="670" MinHeight="500"
+        Height="550" Width="700"
+        MinWidth="700" MinHeight="500"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel Margin="5">
